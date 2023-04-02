@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "jobsity"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+psycopg2-binary = "^2.9.5"
+python-decouple = "^3.8"
+pyyaml = "^6.0"
+kafka-python = "^2.0.2"
+click = "^8.1.3"
+tqdm = "^4.65.0"
+confluent-kafka = "^2.0.2"
+rich = "^13.3.3"
+
+
+[tool.poetry.group.dev.dependencies]
+blue = "^0.9.1"
+isort = "^5.12.0"
+taskipy = "^1.10.4"
+ipython = "^8.12.0"
+
+[tool.poetry.scripts]
+jobsity = "jobsity.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.taskipy.tasks]
+lint_check = "blue --check --diff .; isort --check --diff ."
+lint = "blue jobsity && isort jobsity"
+pre_test = "task lint_check"
+test = "pytest -s -x -vv"
